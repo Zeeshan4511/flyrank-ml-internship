@@ -1,0 +1,1100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Machine Learning for Colorectal Cancer Risk Classification</title>
+
+    <meta name="description"
+          content="A research and decision-support prototype for colorectal cancer risk classification using demographic, lifestyle, family-history, and dietary features.">
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            margin: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI",
+                         Roboto, Helvetica, Arial, sans-serif;
+            background: #f7f8fa;
+            color: #20242a;
+            line-height: 1.7;
+        }
+
+        a {
+            color: #2457a6;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        .container {
+            width: min(1080px, 92%);
+            margin: auto;
+        }
+
+        header {
+            background: linear-gradient(135deg, #172033, #263b5b);
+            color: white;
+            padding: 80px 0 70px;
+        }
+
+        .eyebrow {
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 13px;
+            font-weight: 700;
+            opacity: 0.8;
+            margin-bottom: 15px;
+        }
+
+        h1 {
+            font-size: clamp(36px, 6vw, 62px);
+            line-height: 1.1;
+            margin: 0 0 22px;
+            max-width: 900px;
+        }
+
+        .subtitle {
+            max-width: 850px;
+            font-size: 19px;
+            color: #dbe4f0;
+            margin-bottom: 30px;
+        }
+
+        .badges {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .badge {
+            padding: 7px 13px;
+            border: 1px solid rgba(255,255,255,0.25);
+            border-radius: 20px;
+            font-size: 13px;
+            background: rgba(255,255,255,0.08);
+        }
+
+        nav {
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            background: rgba(255,255,255,0.96);
+            border-bottom: 1px solid #e2e5e9;
+            backdrop-filter: blur(8px);
+        }
+
+        .nav-inner {
+            display: flex;
+            gap: 22px;
+            overflow-x: auto;
+            padding: 14px 0;
+            white-space: nowrap;
+        }
+
+        nav a {
+            color: #4c5561;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        main {
+            padding: 45px 0 80px;
+        }
+
+        section {
+            background: white;
+            border: 1px solid #e3e6ea;
+            border-radius: 14px;
+            padding: 34px;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 18px rgba(20, 30, 45, 0.04);
+        }
+
+        h2 {
+            margin-top: 0;
+            font-size: 28px;
+            color: #172033;
+            border-bottom: 1px solid #e7e9ec;
+            padding-bottom: 12px;
+        }
+
+        h3 {
+            color: #263b5b;
+            margin-top: 30px;
+        }
+
+        p {
+            margin: 12px 0;
+        }
+
+        .abstract {
+            font-size: 18px;
+            color: #39414d;
+        }
+
+        .question {
+            border-left: 4px solid #263b5b;
+            padding: 18px 22px;
+            background: #f4f6f9;
+            margin: 22px 0;
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .metrics {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 14px;
+            margin: 25px 0;
+        }
+
+        .metric {
+            background: #f5f7fa;
+            border: 1px solid #e1e5ea;
+            border-radius: 10px;
+            padding: 18px;
+            text-align: center;
+        }
+
+        .metric strong {
+            display: block;
+            font-size: 28px;
+            color: #172033;
+        }
+
+        .metric span {
+            font-size: 13px;
+            color: #626b77;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 22px 0;
+            font-size: 15px;
+        }
+
+        th,
+        td {
+            border-bottom: 1px solid #e1e4e8;
+            padding: 13px 12px;
+            text-align: left;
+        }
+
+        th {
+            background: #f2f4f7;
+            font-weight: 700;
+            color: #29313d;
+        }
+
+        tr:hover td {
+            background: #fafbfc;
+        }
+
+        .highlight {
+            background: #f4f7fb;
+            border: 1px solid #dce4ef;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .warning {
+            background: #fff8e8;
+            border: 1px solid #ead8a8;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .danger {
+            background: #fff3f3;
+            border: 1px solid #e7c5c5;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        ul,
+        ol {
+            padding-left: 24px;
+        }
+
+        li {
+            margin: 7px 0;
+        }
+
+        .recommendations {
+            counter-reset: recommendation;
+        }
+
+        .recommendation {
+            border: 1px solid #e0e4e9;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 15px 0;
+        }
+
+        .recommendation h3 {
+            margin-top: 0;
+        }
+
+        .reason-code {
+            display: inline-block;
+            background: #eef2f7;
+            color: #3f4b5b;
+            border-radius: 5px;
+            padding: 3px 8px;
+            font-family: monospace;
+            font-size: 12px;
+            margin: 3px 3px 3px 0;
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        footer {
+            background: #172033;
+            color: #d7deea;
+            padding: 45px 0;
+            font-size: 14px;
+        }
+
+        footer h2 {
+            color: white;
+            border: none;
+        }
+
+        .footer-note {
+            color: #aeb8c7;
+        }
+
+        .small {
+            font-size: 13px;
+            color: #68717d;
+        }
+
+        code {
+            background: #f0f2f5;
+            padding: 2px 5px;
+            border-radius: 4px;
+            font-size: 0.9em;
+        }
+
+        @media (max-width: 800px) {
+            .metrics {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .grid-2 {
+                grid-template-columns: 1fr;
+            }
+
+            section {
+                padding: 24px;
+            }
+
+            header {
+                padding: 60px 0 50px;
+            }
+        }
+
+        @media (max-width: 500px) {
+            .metrics {
+                grid-template-columns: 1fr;
+            }
+
+            h1 {
+                font-size: 38px;
+            }
+
+            .subtitle {
+                font-size: 17px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <div class="container">
+        <div class="eyebrow">ML-09 → ML-10 → ML-11 Capstone</div>
+
+        <h1>
+            Machine Learning for Colorectal Cancer Risk Classification
+        </h1>
+
+        <p class="subtitle">
+            A research and decision-support prototype exploring whether
+            demographic, lifestyle, family-history, and dietary features
+            can classify supplied colorectal cancer risk categories.
+        </p>
+
+        <div class="badges">
+            <span class="badge">Machine Learning</span>
+            <span class="badge">Random Forest</span>
+            <span class="badge">Logistic Regression Baseline</span>
+            <span class="badge">Validation Audit</span>
+            <span class="badge">Decision Support</span>
+        </div>
+    </div>
+</header>
+
+<nav>
+    <div class="container nav-inner">
+        <a href="#abstract">Abstract</a>
+        <a href="#question">Question</a>
+        <a href="#data">Data</a>
+        <a href="#methodology">Methodology</a>
+        <a href="#results">Results</a>
+        <a href="#limitations">Limitations</a>
+        <a href="#recommendations">Recommendations</a>
+        <a href="#reproducibility">Reproducibility</a>
+        <a href="#acknowledgments">Acknowledgments</a>
+    </div>
+</nav>
+
+<main class="container">
+
+    <!-- ABSTRACT -->
+
+    <section id="abstract">
+        <h2>Abstract</h2>
+
+        <p class="abstract">
+            This project investigates whether demographic, lifestyle,
+            family-history, and dietary features can be used to classify
+            colorectal cancer risk categories in the available dataset.
+            A Random Forest model was compared with a Logistic Regression
+            baseline using the same 80/20 stratified train-test split.
+            The Random Forest showed measured accuracy of 90.5% and an
+            F1-score of 57.8%, compared with 87.0% accuracy and a 40.9%
+            F1-score for Logistic Regression. The Random Forest achieved
+            41.9% recall for the high-risk class, showing that some
+            high-risk records were still missed. These results are treated
+            as observed and directional evidence from this dataset and as
+            a decision-support prototype rather than evidence of clinical
+            accuracy or real-world generalisation.
+        </p>
+    </section>
+
+
+    <!-- QUESTION -->
+
+    <section id="question">
+        <h2>1. Research Question</h2>
+
+        <p>
+            Colorectal cancer risk can be associated with multiple
+            demographic, lifestyle, family-history, and dietary
+            characteristics. This project explores whether combinations
+            of these available variables contain useful patterns for
+            classifying supplied risk categories.
+        </p>
+
+        <div class="question">
+            Can demographic, lifestyle, family-history, and dietary
+            features be used to classify whether a participant belongs
+            to a low-risk or high-risk colorectal cancer risk category
+            in the available dataset?
+        </div>
+
+        <p>
+            The intended decision supported by the project is
+            <strong>human-reviewed prioritisation</strong>. Model output
+            can help identify records that may deserve earlier review
+            based on measured predicted risk.
+        </p>
+
+        <div class="warning">
+            <strong>Important:</strong>
+            The model is not intended to diagnose colorectal cancer,
+            predict a clinical outcome, or replace professional judgement.
+        </div>
+    </section>
+
+
+    <!-- DATA -->
+
+    <section id="data">
+        <h2>2. Data</h2>
+
+        <p>
+            The project uses the colorectal cancer risk dataset provided
+            for the FlyRank ML Internship.
+        </p>
+
+        <div class="metrics">
+            <div class="metric">
+                <strong>1,000</strong>
+                <span>Participant records</span>
+            </div>
+
+            <div class="metric">
+                <strong>13</strong>
+                <span>Predictive features</span>
+            </div>
+
+            <div class="metric">
+                <strong>80%</strong>
+                <span>Training split</span>
+            </div>
+
+            <div class="metric">
+                <strong>20%</strong>
+                <span>Testing split</span>
+            </div>
+        </div>
+
+        <h3>Available Features</h3>
+
+        <ul>
+            <li>Age</li>
+            <li>Gender</li>
+            <li>BMI</li>
+            <li>Lifestyle</li>
+            <li>Ethnicity</li>
+            <li>Family History of CRC</li>
+            <li>Pre-existing Conditions</li>
+            <li>Carbohydrates</li>
+            <li>Proteins</li>
+            <li>Fats</li>
+            <li>Vitamin A</li>
+            <li>Vitamin C</li>
+            <li>Iron</li>
+        </ul>
+
+        <h3>Target Definition</h3>
+
+        <p>
+            The target variable is <code>CRC_Risk</code>.
+        </p>
+
+        <ul>
+            <li><strong>0</strong> = Low Risk</li>
+            <li><strong>1</strong> = High Risk</li>
+        </ul>
+
+        <h3>Excluded Fields</h3>
+
+        <p>
+            <code>Participant_ID</code> was excluded from model training
+            because it identifies a participant rather than representing
+            a predictive characteristic.
+        </p>
+
+        <p>
+            Missing values in <code>Pre-existing Conditions</code> were
+            represented as <code>None</code>.
+        </p>
+
+        <p class="small">
+            The dataset does not provide a suitable time variable or
+            separate client identifier for strong time-aware or
+            client-level generalisation claims.
+        </p>
+    </section>
+
+
+    <!-- METHODOLOGY -->
+
+    <section id="methodology">
+        <h2>3. Methodology</h2>
+
+        <h3>Model Selection</h3>
+
+        <p>
+            Random Forest was selected as the primary model because it
+            can capture non-linear relationships between features and
+            the target and provides feature-importance information for
+            interpretation.
+        </p>
+
+        <p>
+            Logistic Regression was selected as the baseline because it
+            is a relatively simple and commonly used classification
+            method.
+        </p>
+
+        <h3>Features and Preprocessing</h3>
+
+        <p>
+            The model uses demographic, lifestyle, family-history,
+            pre-existing-condition, and dietary features.
+            <code>Participant_ID</code> and <code>CRC_Risk</code> were
+            excluded from the feature matrix.
+        </p>
+
+        <p>
+            Categorical variables were converted to numerical
+            representations before modelling. Missing pre-existing
+            condition values were represented as <code>None</code>.
+        </p>
+
+        <h3>Validation Design</h3>
+
+        <p>
+            The main evaluation used an 80/20 stratified random
+            train-test split with <code>random_state=42</code>.
+        </p>
+
+        <ul>
+            <li>800 training records</li>
+            <li>200 testing records</li>
+        </ul>
+
+        <p>
+            Stratification was used to maintain the target-class
+            distribution between the training and testing sets.
+        </p>
+
+        <p>
+            A Week-6 validation audit also considered grouped validation
+            by participant identifier. Because each participant is
+            represented as an individual record and the dataset does not
+            contain a true client identifier or repeated participant
+            history, this does not constitute genuine client-level
+            validation.
+        </p>
+
+        <div class="highlight">
+            <strong>Validation interpretation:</strong>
+            The reported performance should therefore be understood as
+            performance on the tested random split rather than evidence
+            of real-world generalisation.
+        </div>
+
+        <h3>Leakage Audit</h3>
+
+        <p>
+            The final feature set was reviewed for direct target leakage.
+            <code>CRC_Risk</code> was excluded because it is the target.
+            <code>Participant_ID</code> was excluded because it is an
+            identifier rather than a meaningful predictive feature.
+        </p>
+
+        <p>
+            A stricter production-style pipeline would fit categorical
+            preprocessing only on the training data. Therefore, the
+            current implementation should be considered a research
+            prototype rather than a production-ready clinical pipeline.
+        </p>
+    </section>
+
+
+    <!-- RESULTS -->
+
+    <section id="results">
+        <h2>4. Results</h2>
+
+        <p>
+            Random Forest was compared with Logistic Regression using the
+            same dataset, same train-test split, and same evaluation
+            metrics.
+        </p>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Model</th>
+                    <th>Accuracy</th>
+                    <th>Precision</th>
+                    <th>Recall</th>
+                    <th>F1 Score</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr>
+                    <td>Logistic Regression</td>
+                    <td>87.0%</td>
+                    <td>69.2%</td>
+                    <td>29.0%</td>
+                    <td>40.9%</td>
+                </tr>
+
+                <tr>
+                    <td><strong>Random Forest</strong></td>
+                    <td><strong>90.5%</strong></td>
+                    <td><strong>92.9%</strong></td>
+                    <td><strong>41.9%</strong></td>
+                    <td><strong>57.8%</strong></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="metrics">
+            <div class="metric">
+                <strong>90.5%</strong>
+                <span>Random Forest Accuracy</span>
+            </div>
+
+            <div class="metric">
+                <strong>92.9%</strong>
+                <span>Random Forest Precision</span>
+            </div>
+
+            <div class="metric">
+                <strong>41.9%</strong>
+                <span>High-Risk Recall</span>
+            </div>
+
+            <div class="metric">
+                <strong>57.8%</strong>
+                <span>Random Forest F1</span>
+            </div>
+        </div>
+
+        <h3>Confusion Matrix</h3>
+
+        <table>
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>Predicted Low Risk</th>
+                    <th>Predicted High Risk</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr>
+                    <th>Actual Low Risk</th>
+                    <td>168</td>
+                    <td>1</td>
+                </tr>
+
+                <tr>
+                    <th>Actual High Risk</th>
+                    <td>18</td>
+                    <td>13</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <p>
+            Random Forest produced higher measured performance than the
+            Logistic Regression baseline across the reported metrics on
+            this tested split.
+        </p>
+
+        <p>
+            The largest difference was observed in F1-score, increasing
+            from 40.9% for Logistic Regression to 57.8% for Random Forest.
+        </p>
+
+        <div class="warning">
+            <strong>Important interpretation:</strong>
+            The high-risk recall was 41.9%. Therefore, the model did not
+            identify every high-risk record in the test set. Accuracy
+            should not be interpreted by itself as evidence that the
+            model is highly reliable.
+        </div>
+    </section>
+
+
+    <!-- FEATURE INTERPRETATION -->
+
+    <section>
+        <h2>5. Feature Interpretation</h2>
+
+        <p>
+            The Random Forest feature-importance analysis showed the
+            following variables among the strongest measured contributors
+            in the model:
+        </p>
+
+        <ol>
+            <li>BMI</li>
+            <li>Lifestyle</li>
+            <li>Age</li>
+            <li>Family History of CRC</li>
+            <li>Vitamin A</li>
+            <li>Vitamin C</li>
+            <li>Proteins</li>
+            <li>Carbohydrates</li>
+            <li>Iron</li>
+            <li>Fats</li>
+        </ol>
+
+        <p>
+            These feature-importance values describe how the Random
+            Forest used the available variables during prediction.
+        </p>
+
+        <div class="danger">
+            <strong>Not causal evidence:</strong>
+            A feature having high model importance does not mean that
+            changing that feature would necessarily change colorectal
+            cancer risk. The importance results are therefore treated
+            as directional model observations rather than medical
+            conclusions.
+        </div>
+    </section>
+
+
+    <!-- LIMITATIONS -->
+
+    <section id="limitations">
+        <h2>6. Limitations & Honest Framing</h2>
+
+        <div class="grid-2">
+
+            <div class="highlight">
+                <h3>Dataset</h3>
+                <p>
+                    The dataset contains a limited number of participant
+                    records and may not represent other populations.
+                </p>
+            </div>
+
+            <div class="highlight">
+                <h3>Validation</h3>
+                <p>
+                    The main evaluation uses a random participant-level
+                    split rather than true client-level or time-aware
+                    validation.
+                </p>
+            </div>
+
+            <div class="highlight">
+                <h3>Model</h3>
+                <p>
+                    High-risk recall was 41.9%, meaning that some
+                    high-risk records were missed.
+                </p>
+            </div>
+
+            <div class="highlight">
+                <h3>Features</h3>
+                <p>
+                    The model only has access to the variables provided
+                    in the dataset.
+                </p>
+            </div>
+
+        </div>
+
+        <h3>What This Work Cannot Claim</h3>
+
+        <ul>
+            <li>It cannot claim clinical validation.</li>
+            <li>It cannot claim to diagnose colorectal cancer.</li>
+            <li>It cannot claim reliable real-world generalisation.</li>
+            <li>It cannot claim that feature importance represents causation.</li>
+            <li>It cannot claim that model predictions replace professional judgement.</li>
+        </ul>
+
+        <h3>Supported Claim</h3>
+
+        <div class="question">
+            On the tested dataset and random 80/20 split, Random Forest
+            showed higher measured classification performance than the
+            Logistic Regression baseline and can be used as a directional
+            decision-support prototype for prioritising records for human
+            review.
+        </div>
+    </section>
+
+
+    <!-- RECOMMENDATIONS -->
+
+    <section id="recommendations">
+        <h2>7. Ranked Recommendations</h2>
+
+        <p>
+            The action playbook converts model predictions into a ranked
+            human-review queue. The recommendations are intended for
+            research and decision-support use rather than automated
+            production decisions.
+        </p>
+
+        <div class="recommendations">
+
+            <div class="recommendation">
+                <h3>01 — High Priority Review</h3>
+
+                <p>
+                    Records with higher measured predicted risk should
+                    receive earlier human review.
+                </p>
+
+                <strong>Reason codes:</strong><br>
+
+                <span class="reason-code">AGE_DIRECTIONAL_SIGNAL</span>
+                <span class="reason-code">BMI_DIRECTIONAL_SIGNAL</span>
+                <span class="reason-code">FAMILY_HISTORY_SIGNAL</span>
+                <span class="reason-code">LIFESTYLE_SIGNAL</span>
+
+                <p class="small">
+                    These codes describe available characteristics
+                    associated with the model's ranking. They are not
+                    causal explanations.
+                </p>
+            </div>
+
+            <div class="recommendation">
+                <h3>02 — Standard Review</h3>
+
+                <p>
+                    Records with moderate predicted risk can be placed
+                    into the normal review queue.
+                </p>
+
+                <p>
+                    A human reviewer should examine the complete
+                    available information before taking any action.
+                </p>
+            </div>
+
+            <div class="recommendation">
+                <h3>03 — No Immediate Model-Based Action</h3>
+
+                <p>
+                    Lower predicted-risk records do not automatically
+                    require an intervention based on this model.
+                </p>
+
+                <p>
+                    A low model prediction should never be interpreted
+                    as proof that a participant has no health risk.
+                </p>
+            </div>
+
+        </div>
+
+        <h3>Human Review Rules</h3>
+
+        <ol>
+            <li>Check the available participant information.</li>
+            <li>Check for missing or unusual values.</li>
+            <li>Review the model prediction together with its reason codes.</li>
+            <li>Consider relevant information that is not available to the model.</li>
+            <li>Do not interpret the model prediction as a diagnosis.</li>
+            <li>Record the final human decision separately from the model output.</li>
+        </ol>
+
+        <h3>What Should NOT Be Automated</h3>
+
+        <ul>
+            <li>Diagnosing colorectal cancer.</li>
+            <li>Automatically starting or stopping treatment.</li>
+            <li>Automatically referring a participant.</li>
+            <li>Automatically rejecting a participant.</li>
+            <li>Automatically communicating a medical diagnosis.</li>
+            <li>Making decisions based only on a single feature.</li>
+            <li>Treating model probability as confirmed medical probability.</li>
+            <li>Replacing qualified professional judgement.</li>
+        </ul>
+    </section>
+
+
+    <!-- MONITORING -->
+
+    <section>
+        <h2>8. Monitoring & Retraining</h2>
+
+        <p>
+            Model-based recommendations can become stale when the
+            underlying data changes. The following signals should
+            trigger a review.
+        </p>
+
+        <ul>
+            <li>Important feature distributions change substantially.</li>
+            <li>The percentage of high-risk predictions changes unexpectedly.</li>
+            <li>False-negative cases increase.</li>
+            <li>High-risk recall decreases on new evaluation data.</li>
+            <li>F1-score decreases meaningfully on independent evaluation data.</li>
+            <li>New categories or values appear that were not present during training.</li>
+            <li>Feature definitions or data-collection methods change.</li>
+        </ul>
+
+        <div class="highlight">
+            <strong>Retraining principle:</strong>
+            Retraining should not happen automatically after every small
+            change. New data should first be checked for quality and
+            relevance, and a candidate model should be compared with
+            the existing model using a consistent evaluation process.
+        </div>
+    </section>
+
+
+    <!-- REPRODUCIBILITY -->
+
+    <section id="reproducibility">
+        <h2>9. Reproducibility</h2>
+
+        <p>
+            The project was developed through a sequence of notebooks
+            covering model development, validation, action
+            recommendations, and final capstone assembly.
+        </p>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Stage</th>
+                    <th>Artifact</th>
+                    <th>Purpose</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr>
+                    <td>Week 5</td>
+                    <td><code>w05_model.ipynb</code></td>
+                    <td>Model development and baseline comparison</td>
+                </tr>
+
+                <tr>
+                    <td>Week 6</td>
+                    <td><code>w06_validation_audit.ipynb</code></td>
+                    <td>Validation, leakage, errors, and claim audit</td>
+                </tr>
+
+                <tr>
+                    <td>Week 7</td>
+                    <td><code>w07_action_playbook.ipynb</code></td>
+                    <td>Ranked actions, human review, monitoring, and limits</td>
+                </tr>
+
+                <tr>
+                    <td>Week 8</td>
+                    <td><code>capstone.ipynb</code></td>
+                    <td>Final paper assembly and artifact generation</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <p>
+            The complete project repository contains the notebooks and
+            supporting artifacts used to inspect the analysis.
+        </p>
+
+        <p>
+            <a href="https://github.com/Zeeshan4511/flyrank-ml-internship"
+               target="_blank"
+               rel="noopener noreferrer">
+                View the project repository →
+            </a>
+        </p>
+
+        <p>
+            <a href="https://github.com/Zeeshan4511/flyrank-ml-internship/blob/main/work/notebooks/capstone.ipynb"
+               target="_blank"
+               rel="noopener noreferrer">
+                View the capstone notebook →
+            </a>
+        </p>
+    </section>
+
+
+    <!-- CONCLUSION -->
+
+    <section>
+        <h2>10. Conclusion</h2>
+
+        <p>
+            This project measured whether demographic, lifestyle,
+            family-history, and dietary features could be used to
+            classify the supplied colorectal cancer risk categories.
+        </p>
+
+        <p>
+            On the tested 80/20 stratified split, Random Forest achieved
+            90.5% accuracy and a 57.8% F1-score, compared with 87.0%
+            accuracy and a 40.9% F1-score for Logistic Regression.
+        </p>
+
+        <p>
+            These results show an observed performance advantage for
+            Random Forest on this dataset and split.
+        </p>
+
+        <p>
+            However, the 41.9% recall for the high-risk class and the
+            limitations of the available validation design show why the
+            result should be treated cautiously.
+        </p>
+
+        <div class="question">
+            The final output is a research and decision-support prototype
+            that ranks records for human review rather than an automated
+            clinical system.
+        </div>
+    </section>
+
+
+    <!-- ACKNOWLEDGMENTS -->
+
+    <section id="acknowledgments">
+        <h2>11. Acknowledgments & Data Credit</h2>
+
+        <p>
+            This project was completed as part of the
+            <strong>FlyRank ML Internship</strong>.
+        </p>
+
+        <p>
+            <strong>Data credit:</strong>
+            Built on the FlyRank ML Internship dataset.
+        </p>
+
+        <p>
+            Data source:
+            <a href="https://flyrank.ai"
+               target="_blank"
+               rel="noopener noreferrer">
+                FlyRank
+            </a>
+        </p>
+
+        <p>
+            The modelling, validation audit, action playbook, and
+            research-paper assembly were completed as part of the
+            internship learning track.
+        </p>
+    </section>
+
+</main>
+
+
+<footer>
+    <div class="container">
+
+        <h2>Research Artifact</h2>
+
+        <p>
+            Machine Learning for Colorectal Cancer Risk Classification
+        </p>
+
+        <p class="footer-note">
+            This page presents observed results from the supplied dataset.
+            It is intended for research and decision-support purposes and
+            should not be interpreted as clinical advice or a validated
+            diagnostic system.
+        </p>
+
+        <p class="footer-note">
+            FlyRank ML Internship · ML-11 · Capstone
+        </p>
+
+    </div>
+</footer>
+
+</body>
+</html>
