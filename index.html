@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 
 <html lang="en">
@@ -5,10 +6,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Machine Learning for Colorectal Cancer Risk Classification</title>
+    <title>Google Search Ranking & Discoverability Capstone | Refresh Opportunity Scoring</title>
 
-<meta name="description"
-      content="A research and decision-support prototype exploring machine learning classification, validation, and human-reviewed action planning using the FlyRank ML Internship dataset.">
+    <meta name="description"
+          content="A research and decision-support capstone using the FlyRank ML Internship dataset to identify and rank content refresh opportunities from historical search-performance signals.">
 
 <style>
     * {
@@ -61,11 +62,11 @@
         font-size: clamp(36px, 6vw, 62px);
         line-height: 1.1;
         margin: 0 0 22px;
-        max-width: 900px;
+        max-width: 950px;
     }
 
     .subtitle {
-        max-width: 850px;
+        max-width: 880px;
         font-size: 19px;
         color: #dbe4f0;
         margin-bottom: 30px;
@@ -226,6 +227,14 @@
         margin: 20px 0;
     }
 
+    .success {
+        background: #f1f8f4;
+        border: 1px solid #cfe3d7;
+        border-radius: 10px;
+        padding: 20px;
+        margin: 20px 0;
+    }
+
     .case-study {
         background: #eef4fb;
         border: 1px solid #d5e1ef;
@@ -277,6 +286,33 @@
         display: grid;
         grid-template-columns: repeat(2, 1fr);
         gap: 20px;
+    }
+
+    .chart-placeholder {
+        border: 1px dashed #cbd2da;
+        border-radius: 10px;
+        padding: 30px;
+        margin: 20px 0;
+        text-align: center;
+        background: #fafbfc;
+        color: #68717d;
+    }
+
+    .chart-placeholder strong {
+        display: block;
+        color: #263b5b;
+        font-size: 17px;
+        margin-bottom: 8px;
+    }
+
+    .code-list {
+        background: #f5f6f8;
+        border: 1px solid #e0e3e7;
+        border-radius: 8px;
+        padding: 16px 20px;
+        font-family: monospace;
+        font-size: 14px;
+        overflow-x: auto;
     }
 
     footer {
@@ -362,41 +398,44 @@
 <header>
     <div class="container">
 
-    <div class="eyebrow">
-        ML-09 → ML-10 → ML-11 → ML-12 Capstone
+        <div class="eyebrow">
+            FlyRank ML Internship · Capstone
+        </div>
+
+        <h1>
+            Google Search Ranking &amp; Discoverability Capstone
+        </h1>
+
+        <p class="subtitle">
+            Refresh / Content Opportunity Scoring — using historical
+            search-performance signals to identify content that may
+            deserve review before or after substantial visibility
+            deterioration.
+        </p>
+
+        <div class="badges">
+            <span class="badge">Search Intelligence</span>
+            <span class="badge">Content Opportunity Scoring</span>
+            <span class="badge">Random Forest</span>
+            <span class="badge">Baseline Comparison</span>
+            <span class="badge">Grouped Validation</span>
+            <span class="badge">Leakage Audit</span>
+            <span class="badge">Action Playbook</span>
+            <span class="badge">Decision Support</span>
+        </div>
+
     </div>
-
-    <h1>
-        Machine Learning for Colorectal Cancer Risk Classification
-    </h1>
-
-    <p class="subtitle">
-        A research and decision-support prototype exploring how
-        machine learning can identify measurable patterns, support
-        prioritisation, and translate model output into a
-        human-reviewed action workflow.
-    </p>
-
-    <div class="badges">
-        <span class="badge">Machine Learning</span>
-        <span class="badge">Random Forest</span>
-        <span class="badge">Logistic Regression Baseline</span>
-        <span class="badge">Validation Audit</span>
-        <span class="badge">Action Playbook</span>
-        <span class="badge">Decision Support</span>
-    </div>
-
-</div>
-
 </header>
+
 
 <nav>
     <div class="container nav-inner">
         <a href="#abstract">Abstract</a>
-        <a href="#question">Question</a>
+        <a href="#problem">Problem</a>
         <a href="#data">Data</a>
         <a href="#methodology">Methodology</a>
         <a href="#results">Results</a>
+        <a href="#importance">Features</a>
         <a href="#limitations">Limitations</a>
         <a href="#recommendations">Recommendations</a>
         <a href="#reproducibility">Reproducibility</a>
@@ -404,7 +443,9 @@
     </div>
 </nav>
 
+
 <main class="container">
+
 
 <!-- ABSTRACT -->
 
@@ -413,57 +454,71 @@
     <h2>Abstract</h2>
 
     <p class="abstract">
-        This project explores a content-oriented decision-support
-        problem: how a machine learning workflow can identify
-        patterns in supplied participant data and turn those
-        patterns into a ranked, human-reviewed action queue.
-        Using the FlyRank ML Internship dataset, I evaluated whether
-        demographic, lifestyle, family-history, and dietary features
-        could classify supplied colorectal cancer risk categories.
-        A Random Forest model was compared with a Logistic Regression
-        baseline using the same 80/20 stratified train-test split,
-        where Random Forest achieved measured accuracy of 90.5% and
-        an F1-score of 57.8%, compared with 87.0% accuracy and a
-        40.9% F1-score for Logistic Regression.
-        The Random Forest achieved 41.9% recall for the high-risk
-        class, showing that some high-risk records were still
-        missed. These results are treated as observed and
-        directional evidence from this dataset and as a
-        decision-support prototype rather than evidence of clinical
-        accuracy or real-world generalisation.
+        <strong>Question:</strong>
+        Can historical search-performance signals be used to identify
+        content that is likely to experience substantial future
+        declines in search impressions and therefore deserves refresh
+        review?
+        <strong>Method:</strong>
+        I aggregated Google Search Console performance data into
+        monthly content-level features, defined a refresh opportunity
+        as a future decline of at least 50% in average monthly
+        impressions, and compared a historical-trend baseline with
+        Logistic Regression and Random Forest models using a
+        client-grouped train/test split.
+        <strong>Result:</strong>
+        Random Forest achieved an Average Precision of
+        <strong>0.7436</strong> and ROC-AUC of
+        <strong>0.7748</strong>, outperforming the historical-trend
+        baseline at the overall ranking level, although the simple
+        baseline remained slightly stronger among the very top-ranked
+        items.
+        <strong>Validation:</strong>
+        On the held-out test set, the Random Forest achieved
+        <strong>82.73% precision in the top 15%</strong> of ranked
+        opportunities compared with a <strong>45.64%</strong> overall
+        opportunity rate, representing approximately
+        <strong>1.81× lift</strong>.
+        <strong>Conclusion:</strong>
+        The resulting ranking can support a practical content-review
+        workflow by concentrating likely refresh opportunities near
+        the top, while remaining a directional decision-support tool
+        rather than evidence that refreshing content will cause search
+        visibility to recover.
     </p>
 
 </section>
 
 
-<!-- QUESTION -->
+<!-- PROBLEM -->
 
-<section id="question">
+<section id="problem">
 
-    <h2>1. Research Question & Case Study</h2>
+    <h2>1. Introduction / Problem Statement</h2>
 
-    <h3>The Content Problem</h3>
+    <h3>The Content Prioritisation Problem</h3>
 
     <p>
-        A practical challenge in content and decision-support
-        workflows is deciding which records, topics, or signals
-        deserve attention first. A model can help with this
-        prioritisation by identifying measurable patterns in
-        available data, but the output needs to remain understandable,
-        reviewable, and appropriately limited.
+        Search performance changes over time. For a content team with
+        many pages, reviewing every page with the same level of
+        attention is inefficient.
+    </p>
+
+    <p>
+        The practical challenge is therefore not simply identifying
+        whether content is performing well or poorly. The more useful
+        decision is determining <strong>which content should receive
+        attention first</strong>.
     </p>
 
     <div class="case-study">
 
-        <strong>FlyRank case-study framing</strong>
+        <strong>Capstone decision problem</strong>
 
         <p>
-            This project uses the supplied FlyRank ML Internship
-            dataset as a practical case study for that workflow.
-            Rather than treating a model score as a final decision,
-            the project demonstrates how predictive signals can be
-            evaluated and translated into a ranked queue for
-            human review.
+            This project asks whether historical search-performance
+            signals can be transformed into a ranked queue of content
+            that deserves refresh or review.
         </p>
 
         <p>
@@ -472,7 +527,8 @@
 
         <p>
             <strong>
-                Data → Model → Validation → Ranked Action → Human Review
+                Historical Data → Features → Model → Validation →
+                Ranked Opportunity → Human Review
             </strong>
         </p>
 
@@ -482,11 +538,10 @@
     <h3>Research Question</h3>
 
     <div class="question">
-        Can demographic, lifestyle, family-history, and dietary
-        features be used to classify whether a participant belongs
-        to a low-risk or high-risk category, and can the resulting
-        model output provide useful directional signals for
-        human-reviewed prioritisation?
+        Can historical search-performance signals identify content
+        that subsequently experiences substantial declines in search
+        impressions, allowing those pages to be prioritised for
+        human refresh review?
     </div>
 
 
@@ -494,32 +549,21 @@
 
     <p>
         The intended decision is
-        <strong>prioritisation for human review</strong>.
+        <strong>content refresh prioritisation</strong>.
     </p>
 
     <p>
-        The model can rank records according to their measured
-        predicted risk and provide directional reason codes based
-        on the available features. This can help a reviewer decide
-        which records may deserve earlier attention.
+        Instead of treating every page equally, the scoring system
+        ranks content according to historical patterns associated
+        with later search-performance deterioration.
     </p>
 
     <p>
-        The model output is therefore treated as a
-        <strong>decision-support signal</strong>, not as a final
-        decision.
+        A higher score means that the content has stronger
+        model-associated evidence of being a refresh opportunity.
+        The score is intended to guide human review rather than
+        automatically trigger a content change.
     </p>
-
-
-    <div class="warning">
-
-        <strong>Important:</strong>
-
-        The model is not intended to diagnose colorectal cancer,
-        predict a clinical outcome, replace professional judgement,
-        or operate as an autonomous medical decision system.
-
-    </div>
 
 </section>
 
@@ -531,84 +575,141 @@
     <h2>2. Data</h2>
 
     <p>
-        The project uses the colorectal cancer risk dataset provided
-        for the FlyRank ML Internship.
+        This capstone uses the <strong>FlyRank ML Internship
+        warehouse release</strong> provided through the internship's
+        gated Hugging Face dataset.
     </p>
-
 
     <div class="metrics">
 
         <div class="metric">
-            <strong>1,000</strong>
-            <span>Participant records</span>
+            <strong>78.8M</strong>
+            <span>Daily performance rows</span>
         </div>
 
         <div class="metric">
-            <strong>13</strong>
-            <span>Predictive features</span>
+            <strong>519K+</strong>
+            <span>Content records inspected</span>
         </div>
 
         <div class="metric">
-            <strong>80%</strong>
-            <span>Training split</span>
+            <strong>18 mo.</strong>
+            <span>Observed reporting period</span>
         </div>
 
         <div class="metric">
-            <strong>20%</strong>
-            <span>Testing split</span>
+            <strong>85,514</strong>
+            <span>Final modeling observations</span>
         </div>
 
     </div>
 
 
-    <h3>Available Features</h3>
+    <h3>Primary Table</h3>
+
+    <p>
+        The primary performance source was:
+    </p>
+
+    <div class="code-list">
+        fact_content_daily_performance
+    </div>
+
+    <p>
+        Supporting warehouse tables were also inspected during the
+        initial data exploration, but the final refresh-opportunity
+        model was constructed from the daily search-performance
+        signals available in the performance fact table.
+    </p>
+
+
+    <h3>Observed Date Range</h3>
+
+    <p>
+        The available performance data covered
+        <strong>January 27, 2025 through June 30, 2026</strong>.
+    </p>
+
+
+    <h3>Historical and Future Windows</h3>
+
+    <table>
+
+        <thead>
+            <tr>
+                <th>Window</th>
+                <th>Dates</th>
+                <th>Purpose</th>
+            </tr>
+        </thead>
+
+        <tbody>
+
+            <tr>
+                <td><strong>Historical</strong></td>
+                <td>November 2025 – March 2026</td>
+                <td>Feature construction</td>
+            </tr>
+
+            <tr>
+                <td><strong>Future</strong></td>
+                <td>April 2026 – June 2026</td>
+                <td>Outcome / label definition</td>
+            </tr>
+
+        </tbody>
+
+    </table>
+
+
+    <h3>Aggregation</h3>
+
+    <p>
+        Daily search-performance records were aggregated to monthly
+        content-client observations.
+    </p>
+
+    <p>
+        Impressions and clicks were summed, while average search
+        position was calculated across the available monthly records.
+        Click-through rate was derived from clicks and impressions.
+    </p>
+
+
+    <h3>Eligibility Rules</h3>
 
     <ul>
-        <li>Age</li>
-        <li>Gender</li>
-        <li>BMI</li>
-        <li>Lifestyle</li>
-        <li>Ethnicity</li>
-        <li>Family History of CRC</li>
-        <li>Pre-existing Conditions</li>
-        <li>Carbohydrates</li>
-        <li>Proteins</li>
-        <li>Fats</li>
-        <li>Vitamin A</li>
-        <li>Vitamin C</li>
-        <li>Iron</li>
+        <li>
+            Content-client combinations required at least
+            <strong>3 historical months</strong> of observations.
+        </li>
+
+        <li>
+            Only observations with all
+            <strong>3 future months</strong> available were retained
+            for the final outcome calculation.
+        </li>
+
+        <li>
+            Rows where the historical click-change feature could not
+            be calculated because the starting click count was zero
+            were excluded from the final model.
+        </li>
     </ul>
 
 
-    <h3>Target Definition</h3>
+    <h3>Public-Safe Data Handling</h3>
 
     <p>
-        The target variable is <code>CRC_Risk</code>.
-    </p>
-
-    <ul>
-        <li><strong>0</strong> = Low Risk</li>
-        <li><strong>1</strong> = High Risk</li>
-    </ul>
-
-
-    <h3>Excluded Fields</h3>
-
-    <p>
-        <code>Participant_ID</code> was excluded from model training
-        because it identifies a participant rather than representing
-        a predictive characteristic.
+        This public paper does not expose client names, domains,
+        private search queries, credentials, raw warehouse exports,
+        or private URLs.
     </p>
 
     <p>
-        Missing values in <code>Pre-existing Conditions</code> were
-        represented as <code>None</code>.
-    </p>
-
-    <p class="small">
-        The dataset does not provide a suitable time variable or
-        separate client identifier for strong time-aware or
-        client-level generalisation claims.
+        Dataset content identifiers shown in examples are dataset
+        identifiers and are not presented as public client-facing
+        URLs.
     </p>
 
 </section>
@@ -620,93 +721,253 @@
 
     <h2>3. Methodology</h2>
 
-    <h3>Model Selection</h3>
+    <h3>Feature Engineering</h3>
 
     <p>
-        Random Forest was selected as the primary model because it
-        can capture non-linear relationships between features and
-        the target and provides feature-importance information for
-        interpretation.
+        Historical monthly performance was converted into a set of
+        content-level features representing volume, efficiency,
+        position, and historical movement.
+    </p>
+
+    <div class="grid-2">
+
+        <div class="highlight">
+
+            <h3>Volume Signals</h3>
+
+            <ul>
+                <li>Total impressions</li>
+                <li>Total clicks</li>
+                <li>First impressions</li>
+                <li>Last impressions</li>
+            </ul>
+
+        </div>
+
+
+        <div class="highlight">
+
+            <h3>Search Signals</h3>
+
+            <ul>
+                <li>Average position</li>
+                <li>First position</li>
+                <li>Last position</li>
+                <li>Average CTR</li>
+            </ul>
+
+        </div>
+
+
+        <div class="highlight">
+
+            <h3>Trend Signals</h3>
+
+            <ul>
+                <li>Historical impression change</li>
+                <li>Historical position change</li>
+            </ul>
+
+        </div>
+
+
+        <div class="highlight">
+
+            <h3>History Signals</h3>
+
+            <ul>
+                <li>Months observed</li>
+                <li>First clicks</li>
+                <li>Last clicks</li>
+            </ul>
+
+        </div>
+
+    </div>
+
+
+    <p>
+        The final feature matrix contained
+        <strong>13 predictive features</strong>.
+    </p>
+
+
+    <h3>Refresh Opportunity Label</h3>
+
+    <p>
+        The target was designed around a practical content
+        deterioration event.
+    </p>
+
+    <div class="question">
+        A content observation is a <strong>Refresh Opportunity</strong>
+        when its future average monthly impressions decline by at
+        least 50% compared with its historical average monthly
+        impressions.
+    </div>
+
+    <table>
+
+        <thead>
+            <tr>
+                <th>Target</th>
+                <th>Meaning</th>
+                <th>Count</th>
+                <th>Share</th>
+            </tr>
+        </thead>
+
+        <tbody>
+
+            <tr>
+                <td><strong>0</strong></td>
+                <td>Not a Refresh Opportunity</td>
+                <td>61,555</td>
+                <td>71.98%</td>
+            </tr>
+
+            <tr>
+                <td><strong>1</strong></td>
+                <td>Refresh Opportunity</td>
+                <td>23,959</td>
+                <td>28.02%</td>
+            </tr>
+
+        </tbody>
+
+    </table>
+
+
+    <h3>Baseline</h3>
+
+    <p>
+        A simple historical-trend baseline was created before
+        evaluating machine-learning models.
     </p>
 
     <p>
-        Logistic Regression was selected as the baseline because it
-        is a relatively simple and commonly used classification
-        method.
-    </p>
-
-
-    <h3>Features and Preprocessing</h3>
-
-    <p>
-        The model uses demographic, lifestyle, family-history,
-        pre-existing-condition, and dietary features.
-        <code>Participant_ID</code> and <code>CRC_Risk</code> were
-        excluded from the feature matrix.
+        The baseline ranked content using the inverse of historical
+        impression change. In simple terms, pages showing stronger
+        historical deterioration were ranked higher.
     </p>
 
     <p>
-        Categorical variables were converted to numerical
-        representations before modelling. Missing pre-existing
-        condition values were represented as <code>None</code>.
+        This baseline provides an important benchmark because a
+        machine-learning model should demonstrate useful improvement
+        over a simple, understandable heuristic.
     </p>
+
+
+    <h3>Machine-Learning Models</h3>
+
+    <p>
+        Two classification models were evaluated:
+    </p>
+
+    <ol>
+
+        <li>
+            <strong>Logistic Regression</strong> — used as a simple
+            machine-learning baseline.
+        </li>
+
+        <li>
+            <strong>Random Forest</strong> — used as the primary
+            non-linear model.
+        </li>
+
+    </ol>
 
 
     <h3>Validation Design</h3>
 
     <p>
-        The main evaluation used an 80/20 stratified random
-        train-test split with <code>random_state=42</code>.
+        A <strong>client-grouped train/test split</strong> was used
+        instead of randomly splitting individual observations.
     </p>
 
-    <ul>
-        <li>800 training records</li>
-        <li>200 testing records</li>
-    </ul>
+    <div class="metrics">
 
-    <p>
-        Stratification was used to maintain the target-class
-        distribution between the training and testing sets.
-    </p>
+        <div class="metric">
+            <strong>77,942</strong>
+            <span>Training observations</span>
+        </div>
 
-    <p>
-        A Week-6 validation audit also considered the question of
-        whether a grouped or time-aware split would better support
-        generalisation claims. Because the available dataset
-        contains individual participant records and does not provide
-        a true client identifier, repeated participant history, or
-        a suitable time variable, the available evidence does not
-        support a genuine client-level or time-aware generalisation
-        claim.
-    </p>
+        <div class="metric">
+            <strong>7,572</strong>
+            <span>Test observations</span>
+        </div>
 
+        <div class="metric">
+            <strong>20</strong>
+            <span>Training clients</span>
+        </div>
 
-    <div class="highlight">
-
-        <strong>Validation interpretation:</strong>
-
-        The reported performance should therefore be understood as
-        performance on the tested random split rather than evidence
-        of reliable real-world generalisation.
+        <div class="metric">
+            <strong>6</strong>
+            <span>Test clients</span>
+        </div>
 
     </div>
 
 
-    <h3>Leakage Audit</h3>
+    <div class="success">
+
+        <strong>Grouped validation:</strong>
+
+        There was <strong>0 client overlap</strong> between the
+        training and testing groups. This reduces the risk that the
+        model's reported performance is driven simply by seeing
+        observations from the same client in both sets.
+
+    </div>
+
+
+    <h3>Observed Class Shift</h3>
 
     <p>
-        The final feature set was reviewed for direct target leakage.
-        <code>CRC_Risk</code> was excluded because it is the target.
-        <code>Participant_ID</code> was excluded because it is an
-        identifier rather than a meaningful predictive feature.
+        The grouped split produced a meaningful difference in
+        opportunity prevalence between training and testing clients.
     </p>
 
+    <ul>
+        <li>
+            Training refresh-opportunity rate:
+            <strong>26.31%</strong>
+        </li>
+
+        <li>
+            Test refresh-opportunity rate:
+            <strong>45.64%</strong>
+        </li>
+    </ul>
+
     <p>
-        A stricter production-style pipeline would fit categorical
-        preprocessing only on the training data. Therefore, the
-        current implementation should be considered a research
-        prototype rather than a production-ready clinical pipeline.
+        This distribution shift was retained and reported rather than
+        changing the split simply to make the class percentages more
+        similar.
     </p>
+
+
+    <h3>Leakage Check</h3>
+
+    <p>
+        Future outcome columns were explicitly checked against the
+        final model feature list.
+    </p>
+
+    <div class="success">
+
+        <strong>PASS — No future outcome columns were included in
+        the model features.</strong>
+
+        <p>
+            The April–June 2026 future window was used to define the
+            outcome, but those future outcome variables were not used
+            as predictors.
+        </p>
+
+    </div>
 
 </section>
 
@@ -718,11 +979,12 @@
     <h2>4. Results</h2>
 
     <p>
-        Random Forest was compared with Logistic Regression using the
-        same dataset, same train-test split, and same evaluation
-        metrics.
+        The models were evaluated on the same held-out client-group
+        test set.
     </p>
 
+
+    <h3>Model Comparison</h3>
 
     <table>
 
@@ -730,10 +992,10 @@
 
             <tr>
                 <th>Model</th>
-                <th>Accuracy</th>
-                <th>Precision</th>
-                <th>Recall</th>
-                <th>F1 Score</th>
+                <th>Average Precision</th>
+                <th>ROC-AUC</th>
+                <th>Precision@100</th>
+                <th>Precision@500</th>
             </tr>
 
         </thead>
@@ -741,19 +1003,27 @@
         <tbody>
 
             <tr>
+                <td>Historical Trend Baseline</td>
+                <td>0.5097</td>
+                <td>0.6744</td>
+                <td>98.0%</td>
+                <td>94.8%</td>
+            </tr>
+
+            <tr>
                 <td>Logistic Regression</td>
-                <td>87.0%</td>
-                <td>69.2%</td>
-                <td>29.0%</td>
-                <td>40.9%</td>
+                <td>0.6458</td>
+                <td>0.6973</td>
+                <td>66.0%</td>
+                <td>76.0%</td>
             </tr>
 
             <tr>
                 <td><strong>Random Forest</strong></td>
-                <td><strong>90.5%</strong></td>
-                <td><strong>92.9%</strong></td>
-                <td><strong>41.9%</strong></td>
-                <td><strong>57.8%</strong></td>
+                <td><strong>0.7436</strong></td>
+                <td><strong>0.7748</strong></td>
+                <td><strong>97.0%</strong></td>
+                <td><strong>89.4%</strong></td>
             </tr>
 
         </tbody>
@@ -764,38 +1034,84 @@
     <div class="metrics">
 
         <div class="metric">
-            <strong>90.5%</strong>
-            <span>Random Forest Accuracy</span>
+            <strong>0.7436</strong>
+            <span>Random Forest Average Precision</span>
         </div>
 
         <div class="metric">
-            <strong>92.9%</strong>
-            <span>Random Forest Precision</span>
+            <strong>0.7748</strong>
+            <span>Random Forest ROC-AUC</span>
         </div>
 
         <div class="metric">
-            <strong>41.9%</strong>
-            <span>High-Risk Recall</span>
+            <strong>+45.9%</strong>
+            <span>AP improvement vs baseline</span>
         </div>
 
         <div class="metric">
-            <strong>57.8%</strong>
-            <span>Random Forest F1</span>
+            <strong>+14.9%</strong>
+            <span>ROC-AUC improvement vs baseline</span>
         </div>
 
     </div>
 
 
-    <h3>Confusion Matrix</h3>
+    <h3>Overall Ranking Performance</h3>
+
+    <p>
+        Random Forest achieved the strongest overall ranking
+        performance.
+    </p>
+
+    <p>
+        Average Precision increased from <strong>0.5097</strong> for
+        the historical-trend baseline to <strong>0.7436</strong> for
+        Random Forest.
+    </p>
+
+    <p>
+        ROC-AUC increased from <strong>0.6744</strong> to
+        <strong>0.7748</strong>.
+    </p>
+
+
+    <div class="highlight">
+
+        <strong>Important baseline finding:</strong>
+
+        The simple historical-trend baseline remained slightly
+        stronger at the very top of the ranking, achieving
+        <strong>98.0% Precision@100</strong> and
+        <strong>94.8% Precision@500</strong>.
+
+        Random Forest achieved 97.0% and 89.4% respectively.
+
+        <p>
+            This shows that machine learning added value to overall
+            ranking performance, but did not dominate the simple
+            trend heuristic at every ranking depth.
+        </p>
+
+    </div>
+
+
+    <h3>Held-Out Test Ranking</h3>
+
+    <p>
+        The held-out test set contained <strong>7,572</strong>
+        observations and had an overall refresh-opportunity rate of
+        <strong>45.64%</strong>.
+    </p>
 
     <table>
 
         <thead>
 
             <tr>
-                <th></th>
-                <th>Predicted Low Risk</th>
-                <th>Predicted High Risk</th>
+                <th>Ranked Segment</th>
+                <th>Rows</th>
+                <th>Precision</th>
+                <th>Lift vs Overall</th>
             </tr>
 
         </thead>
@@ -803,15 +1119,31 @@
         <tbody>
 
             <tr>
-                <th>Actual Low Risk</th>
-                <td>168</td>
-                <td>1</td>
+                <td>Top 5%</td>
+                <td>378</td>
+                <td><strong>91.27%</strong></td>
+                <td>2.00×</td>
             </tr>
 
             <tr>
-                <th>Actual High Risk</th>
-                <td>18</td>
-                <td>13</td>
+                <td>Top 10%</td>
+                <td>757</td>
+                <td><strong>87.32%</strong></td>
+                <td>1.91×</td>
+            </tr>
+
+            <tr>
+                <td>Top 15%</td>
+                <td>1,135</td>
+                <td><strong>82.73%</strong></td>
+                <td>1.81×</td>
+            </tr>
+
+            <tr>
+                <td>Top 25%</td>
+                <td>1,893</td>
+                <td><strong>77.71%</strong></td>
+                <td>1.70×</td>
             </tr>
 
         </tbody>
@@ -819,71 +1151,153 @@
     </table>
 
 
-    <p>
-        Random Forest produced higher measured performance than the
-        Logistic Regression baseline across the reported metrics on
-        this tested split.
-    </p>
+    <div class="success">
 
-    <p>
-        The largest difference was observed in F1-score, increasing
-        from 40.9% for Logistic Regression to 57.8% for Random Forest.
-    </p>
+        <strong>Key result:</strong>
+
+        The top 15% of the Random Forest ranking achieved
+        <strong>82.73% precision</strong>, compared with
+        <strong>45.64%</strong> across the complete test set.
+
+        This represents approximately <strong>1.81× lift</strong>
+        over the overall opportunity rate.
+
+    </div>
 
 
-    <div class="warning">
+    <h3>Research Charts</h3>
 
-        <strong>Important interpretation:</strong>
+    <div class="chart-placeholder">
+        <strong>Chart 1 — Average Precision Model Comparison</strong>
+        Insert the Average Precision comparison chart generated in
+        the capstone notebook here.
+    </div>
 
-        The high-risk recall was 41.9%. Therefore, the model did not
-        identify every high-risk record in the test set. Accuracy
-        should not be interpreted by itself as evidence that the
-        model is highly reliable.
+    <div class="chart-placeholder">
+        <strong>Chart 2 — ROC-AUC Model Comparison</strong>
+        Insert the ROC-AUC comparison chart generated in the
+        capstone notebook here.
+    </div>
 
+    <div class="chart-placeholder">
+        <strong>Chart 3 — Precision Lift by Ranked Segment</strong>
+        Insert the lift chart showing Top 5%, 10%, 15%, and 25%
+        performance here.
     </div>
 
 </section>
 
 
-<!-- FEATURE INTERPRETATION -->
+<!-- FEATURE IMPORTANCE -->
 
-<section>
+<section id="importance">
 
-    <h2>5. Feature Interpretation</h2>
-
-    <p>
-        The Random Forest feature-importance analysis showed the
-        following variables among the strongest measured contributors
-        in the model:
-    </p>
-
-    <ol>
-        <li>BMI</li>
-        <li>Lifestyle</li>
-        <li>Age</li>
-        <li>Family History of CRC</li>
-        <li>Vitamin A</li>
-        <li>Vitamin C</li>
-        <li>Proteins</li>
-        <li>Carbohydrates</li>
-        <li>Iron</li>
-        <li>Fats</li>
-    </ol>
+    <h2>5. Feature Importance</h2>
 
     <p>
-        These feature-importance values describe how the Random
-        Forest used the available variables during prediction.
+        The Random Forest feature-importance analysis identifies
+        which historical variables contributed most strongly to the
+        model's ranking behaviour.
     </p>
 
-    <div class="danger">
 
-        <strong>Not causal evidence:</strong>
+    <table>
 
-        A feature having high model importance does not mean that
-        changing that feature would necessarily change colorectal
-        cancer risk. The importance results are therefore treated
-        as directional model observations rather than medical
-        conclusions.
+        <thead>
+
+            <tr>
+                <th>Feature</th>
+                <th>Importance</th>
+            </tr>
+
+        </thead>
+
+        <tbody>
+
+            <tr>
+                <td><strong>Impression Change</strong></td>
+                <td><strong>27.71%</strong></td>
+            </tr>
+
+            <tr>
+                <td>Average Position</td>
+                <td>13.86%</td>
+            </tr>
+
+            <tr>
+                <td>Last Impressions</td>
+                <td>12.29%</td>
+            </tr>
+
+            <tr>
+                <td>Total Impressions</td>
+                <td>10.92%</td>
+            </tr>
+
+            <tr>
+                <td>Average CTR</td>
+                <td>6.24%</td>
+            </tr>
+
+            <tr>
+                <td>First Position</td>
+                <td>6.16%</td>
+            </tr>
+
+            <tr>
+                <td>Last Position</td>
+                <td>5.69%</td>
+            </tr>
+
+            <tr>
+                <td>First Impressions</td>
+                <td>5.62%</td>
+            </tr>
+
+            <tr>
+                <td>Position Change</td>
+                <td>3.86%</td>
+            </tr>
+
+            <tr>
+                <td>Total Clicks</td>
+                <td>3.58%</td>
+            </tr>
+
+            <tr>
+                <td>Last Clicks</td>
+                <td>2.54%</td>
+            </tr>
+
+            <tr>
+                <td>History Months</td>
+                <td>1.18%</td>
+            </tr>
+
+            <tr>
+                <td>First Clicks</td>
+                <td>0.33%</td>
+            </tr>
+
+        </tbody>
+
+    </table>
+
+
+    <div class="chart-placeholder">
+        <strong>Chart 4 — Random Forest Feature Importance</strong>
+        Insert the feature-importance chart generated in the
+        capstone notebook here.
+    </div>
+
+
+    <div class="warning">
+
+        <strong>Interpretation warning:</strong>
+
+        Feature importance describes model association. It does not
+        prove that changing a feature will cause search performance
+        to change.
 
     </div>
 
@@ -894,42 +1308,81 @@
 
 <section id="limitations">
 
-    <h2>6. Limitations & Honest Framing</h2>
+    <h2>6. Limitations &amp; Honest Framing</h2>
 
     <div class="grid-2">
 
         <div class="highlight">
-            <h3>Dataset</h3>
+
+            <h3>Retrospective Design</h3>
+
             <p>
-                The dataset contains a limited number of participant
-                records and may not represent other populations.
+                The analysis uses a historical period to construct
+                features and a later period to define the outcome.
+                The final ranking is therefore retrospective rather
+                than a live production forecast.
             </p>
+
         </div>
 
-        <div class="highlight">
-            <h3>Validation</h3>
-            <p>
-                The main evaluation uses a random participant-level
-                split rather than true client-level or time-aware
-                validation.
-            </p>
-        </div>
 
         <div class="highlight">
-            <h3>Model</h3>
+
+            <h3>Client Distribution Shift</h3>
+
             <p>
-                High-risk recall was 41.9%, meaning that some
-                high-risk records were missed.
+                The grouped test set had a higher refresh-opportunity
+                rate than the training set. This affects how the
+                validation results should be interpreted.
             </p>
+
         </div>
 
+
         <div class="highlight">
-            <h3>Features</h3>
+
+            <h3>Baseline Strength</h3>
+
             <p>
-                The model only has access to the variables provided
-                in the dataset.
+                The simple historical trend baseline performed
+                extremely well at the very top of the ranking.
             </p>
+
         </div>
+
+
+        <div class="highlight">
+
+            <h3>Unobserved Causes</h3>
+
+            <p>
+                Impression changes can have many causes that are not
+                represented in the available feature set.
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <h3>Full-Data Ranking Caveat</h3>
+
+    <p>
+        After validation, the Random Forest was fitted on the complete
+        modeling dataset to produce the final ranked recommendation
+        queue.
+    </p>
+
+    <div class="warning">
+
+        <strong>Important:</strong>
+
+        The full-data opportunity scores are not independent
+        out-of-sample predictions because the final model was trained
+        using all available retrospective labeled observations.
+
+        The held-out client-group test results are therefore the
+        primary evidence used to evaluate model performance.
 
     </div>
 
@@ -937,11 +1390,32 @@
     <h3>What This Work Cannot Claim</h3>
 
     <ul>
-        <li>It cannot claim clinical validation.</li>
-        <li>It cannot claim to diagnose colorectal cancer.</li>
-        <li>It cannot claim reliable real-world generalisation.</li>
-        <li>It cannot claim that feature importance represents causation.</li>
-        <li>It cannot claim that model predictions replace professional judgement.</li>
+
+        <li>
+            It cannot prove Google's ranking algorithm or ranking
+            mechanism.
+        </li>
+
+        <li>
+            It cannot prove that refreshing a page will cause its
+            impressions to recover.
+        </li>
+
+        <li>
+            It cannot establish causal relationships between the
+            features and search-performance changes.
+        </li>
+
+        <li>
+            It cannot guarantee future performance for a specific
+            content item.
+        </li>
+
+        <li>
+            It cannot replace human content strategy or editorial
+            judgement.
+        </li>
+
     </ul>
 
 
@@ -949,11 +1423,11 @@
 
     <div class="question">
 
-        On the tested dataset and random 80/20 split, Random Forest
-        showed higher measured classification performance than the
-        Logistic Regression baseline and can be used as a directional
-        decision-support prototype for prioritising records for human
-        review.
+        Historical search-performance signals can be used to build a
+        ranking that concentrates subsequently observed refresh
+        opportunities toward the top of the queue. The result is
+        best used as a directional decision-support tool for
+        prioritising human content review.
 
     </div>
 
@@ -964,154 +1438,11 @@
 
 <section id="recommendations">
 
-    <h2>7. Ranked Recommendations</h2>
+    <h2>7. Ranked Recommendations / Action Playbook</h2>
 
     <p>
-        The action playbook converts model predictions into a ranked
-        human-review queue. The recommendations are intended for
-        research and decision-support use rather than automated
-        production decisions.
-    </p>
-
-
-    <div class="recommendations">
-
-        <div class="recommendation">
-
-            <h3>01 — High Priority Review</h3>
-
-            <p>
-                Records with higher measured predicted risk should
-                receive earlier human review.
-            </p>
-
-            <strong>Reason codes:</strong><br>
-
-            <span class="reason-code">AGE_DIRECTIONAL_SIGNAL</span>
-            <span class="reason-code">BMI_DIRECTIONAL_SIGNAL</span>
-            <span class="reason-code">FAMILY_HISTORY_SIGNAL</span>
-            <span class="reason-code">LIFESTYLE_SIGNAL</span>
-
-            <p class="small">
-                These codes describe available characteristics
-                associated with the model's ranking. They are not
-                causal explanations.
-            </p>
-
-        </div>
-
-
-        <div class="recommendation">
-
-            <h3>02 — Standard Review</h3>
-
-            <p>
-                Records with moderate predicted risk can be placed
-                into the normal review queue.
-            </p>
-
-            <p>
-                A human reviewer should examine the complete
-                available information before taking any action.
-            </p>
-
-        </div>
-
-
-        <div class="recommendation">
-
-            <h3>03 — No Immediate Model-Based Action</h3>
-
-            <p>
-                Lower predicted-risk records do not automatically
-                require an intervention based on this model.
-            </p>
-
-            <p>
-                A low model prediction should never be interpreted
-                as proof that a participant has no health risk.
-            </p>
-
-        </div>
-
-    </div>
-
-
-    <h3>Human Review Rules</h3>
-
-    <ol>
-        <li>Check the available participant information.</li>
-        <li>Check for missing or unusual values.</li>
-        <li>Review the model prediction together with its reason codes.</li>
-        <li>Consider relevant information that is not available to the model.</li>
-        <li>Do not interpret the model prediction as a diagnosis.</li>
-        <li>Record the final human decision separately from the model output.</li>
-    </ol>
-
-
-    <h3>What Should NOT Be Automated</h3>
-
-    <ul>
-        <li>Diagnosing colorectal cancer.</li>
-        <li>Automatically starting or stopping treatment.</li>
-        <li>Automatically referring a participant.</li>
-        <li>Automatically rejecting a participant.</li>
-        <li>Automatically communicating a medical diagnosis.</li>
-        <li>Making decisions based only on a single feature.</li>
-        <li>Treating model probability as confirmed medical probability.</li>
-        <li>Replacing qualified professional judgement.</li>
-    </ul>
-
-</section>
-
-
-<!-- MONITORING -->
-
-<section>
-
-    <h2>8. Monitoring & Retraining</h2>
-
-    <p>
-        Model-based recommendations can become stale when the
-        underlying data changes. The following signals should
-        trigger a review.
-    </p>
-
-    <ul>
-        <li>Important feature distributions change substantially.</li>
-        <li>The percentage of high-risk predictions changes unexpectedly.</li>
-        <li>False-negative cases increase.</li>
-        <li>High-risk recall decreases on new evaluation data.</li>
-        <li>F1-score decreases meaningfully on independent evaluation data.</li>
-        <li>New categories or values appear that were not present during training.</li>
-        <li>Feature definitions or data-collection methods change.</li>
-    </ul>
-
-
-    <div class="highlight">
-
-        <strong>Retraining principle:</strong>
-
-        Retraining should not happen automatically after every small
-        change. New data should first be checked for quality and
-        relevance, and a candidate model should be compared with
-        the existing model using a consistent evaluation process.
-
-    </div>
-
-</section>
-
-
-<!-- REPRODUCIBILITY -->
-
-<section id="reproducibility">
-
-    <h2>9. Reproducibility</h2>
-
-    <p>
-        The project was developed through a sequence of notebooks
-        covering model development, validation, action
-        recommendations, and final capstone assembly.
+        The final Random Forest opportunity scores were converted
+        into percentile-based priority groups.
     </p>
 
 
@@ -1120,9 +1451,10 @@
         <thead>
 
             <tr>
-                <th>Stage</th>
-                <th>Artifact</th>
-                <th>Purpose</th>
+                <th>Priority</th>
+                <th>Score Segment</th>
+                <th>Content Count</th>
+                <th>Recommended Action</th>
             </tr>
 
         </thead>
@@ -1130,27 +1462,24 @@
         <tbody>
 
             <tr>
-                <td>Week 5</td>
-                <td><code>w05_model.ipynb</code></td>
-                <td>Model development and baseline comparison</td>
+                <td><strong>High Priority</strong></td>
+                <td>Top 15%</td>
+                <td>12,827</td>
+                <td><strong>Refresh</strong></td>
             </tr>
 
             <tr>
-                <td>Week 6</td>
-                <td><code>w06_validation_audit.ipynb</code></td>
-                <td>Validation, leakage, errors, and claim audit</td>
+                <td><strong>Review</strong></td>
+                <td>Next 25%</td>
+                <td>21,379</td>
+                <td><strong>Review</strong></td>
             </tr>
 
             <tr>
-                <td>Week 7</td>
-                <td><code>w07_action_playbook.ipynb</code></td>
-                <td>Ranked actions, human review, monitoring, and limits</td>
-            </tr>
-
-            <tr>
-                <td>Week 8</td>
-                <td><code>capstone.ipynb</code></td>
-                <td>Final paper assembly and artifact generation</td>
+                <td><strong>Monitor</strong></td>
+                <td>Bottom 60%</td>
+                <td>51,308</td>
+                <td><strong>Monitor</strong></td>
             </tr>
 
         </tbody>
@@ -1158,28 +1487,314 @@
     </table>
 
 
+    <div class="recommendations">
+
+
+        <div class="recommendation">
+
+            <h3>01 — High Priority: Refresh</h3>
+
+            <p>
+                The highest-scoring 15% should receive the first round
+                of human content review.
+            </p>
+
+            <strong>Recommended checks:</strong>
+
+            <ul>
+                <li>Review content freshness.</li>
+                <li>Check search-intent alignment.</li>
+                <li>Identify outdated information.</li>
+                <li>Check topical coverage and completeness.</li>
+                <li>Review internal linking opportunities.</li>
+                <li>
+                    Prioritise pages with meaningful historical
+                    visibility.
+                </li>
+            </ul>
+
+            <strong>Reason signals:</strong><br>
+
+            <span class="reason-code">HISTORICAL_DECLINE</span>
+            <span class="reason-code">POSITION_SIGNAL</span>
+            <span class="reason-code">VISIBILITY_SIGNAL</span>
+            <span class="reason-code">CTR_SIGNAL</span>
+
+        </div>
+
+
+        <div class="recommendation">
+
+            <h3>02 — Review: Manual Assessment</h3>
+
+            <p>
+                The next 25% should enter a secondary review queue.
+            </p>
+
+            <ul>
+                <li>Check whether the observed decline is meaningful.</li>
+                <li>Consider seasonality and demand changes.</li>
+                <li>Review content relevance and freshness.</li>
+                <li>Decide whether refresh or monitoring is appropriate.</li>
+            </ul>
+
+        </div>
+
+
+        <div class="recommendation">
+
+            <h3>03 — Monitor: Continue Tracking</h3>
+
+            <p>
+                The bottom 60% does not receive an immediate
+                refresh recommendation from this scoring system.
+            </p>
+
+            <ul>
+                <li>Continue monitoring performance.</li>
+                <li>Recalculate the ranking during the next review cycle.</li>
+                <li>Escalate pages if deterioration becomes stronger.</li>
+            </ul>
+
+        </div>
+
+    </div>
+
+
+    <h3>Why Percentile-Based Priorities?</h3>
+
     <p>
-        The complete project repository contains the notebooks and
-        supporting artifacts used to inspect the analysis.
+        The final action groups use percentile-based thresholds rather
+        than arbitrary opportunity-score cutoffs.
+    </p>
+
+    <p>
+        This creates a practical queue where approximately
+        <strong>15%</strong> of observations receive the highest
+        priority, <strong>25%</strong> receive a secondary review,
+        and the remaining <strong>60%</strong> remain under
+        monitoring.
+    </p>
+
+
+    <h3>Human Review Principle</h3>
+
+    <div class="highlight">
+
+        <strong>
+            Model ranking → Human review → Content decision
+        </strong>
+
+        <p>
+            The score should help decide where to look first. It
+            should not automatically decide what content must be
+            changed.
+        </p>
+
+    </div>
+
+
+    <h3>Example Ranked Opportunity</h3>
+
+    <p>
+        One high-ranked dataset content identifier illustrates the
+        type of evidence behind the queue:
+    </p>
+
+    <table>
+
+        <thead>
+
+            <tr>
+                <th>Signal</th>
+                <th>Observed Value</th>
+            </tr>
+
+        </thead>
+
+        <tbody>
+
+            <tr>
+                <td>Content ID</td>
+                <td><code>content_0457310428cc47ce</code></td>
+            </tr>
+
+            <tr>
+                <td>Opportunity Score</td>
+                <td><strong>0.9908</strong></td>
+            </tr>
+
+            <tr>
+                <td>Historical Avg. Monthly Impressions</td>
+                <td>3,532.4</td>
+            </tr>
+
+            <tr>
+                <td>Future Avg. Monthly Impressions</td>
+                <td>86.33</td>
+            </tr>
+
+            <tr>
+                <td>Future Impression Change</td>
+                <td><strong>-97.56%</strong></td>
+            </tr>
+
+            <tr>
+                <td>Average Position</td>
+                <td>33.48</td>
+            </tr>
+
+            <tr>
+                <td>Historical Impression Change</td>
+                <td><strong>-99.03%</strong></td>
+            </tr>
+
+        </tbody>
+
+    </table>
+
+    <p class="small">
+        This example uses a dataset content identifier only. No
+        client name, domain, private query, or public-facing URL is
+        exposed.
+    </p>
+
+</section>
+
+
+<!-- REPRODUCIBILITY -->
+
+<section id="reproducibility">
+
+    <h2>8. Reproducibility</h2>
+
+    <p>
+        The capstone was developed as a repeatable data-analysis and
+        machine-learning workflow using Python, Pandas, scikit-learn,
+        DuckDB, and the provided Hugging Face warehouse workflow.
+    </p>
+
+
+    <h3>Analysis Workflow</h3>
+
+    <ol>
+
+        <li>
+            Load the FlyRank warehouse release.
+        </li>
+
+        <li>
+            Inspect the available performance tables and date range.
+        </li>
+
+        <li>
+            Aggregate daily search-performance records to monthly
+            content-client observations.
+        </li>
+
+        <li>
+            Construct historical features from November 2025 through
+            March 2026.
+        </li>
+
+        <li>
+            Define the April–June 2026 future outcome.
+        </li>
+
+        <li>
+            Apply the historical and future eligibility rules.
+        </li>
+
+        <li>
+            Build and evaluate the historical-trend baseline.
+        </li>
+
+        <li>
+            Train Logistic Regression and Random Forest models.
+        </li>
+
+        <li>
+            Validate using a client-grouped train/test split.
+        </li>
+
+        <li>
+            Run an explicit future-data leakage check.
+        </li>
+
+        <li>
+            Generate the ranked refresh opportunity queue.
+        </li>
+
+        <li>
+            Convert scores into operational priority groups.
+        </li>
+
+    </ol>
+
+
+    <h3>Project Repository</h3>
+
+    <p>
+        The complete project repository contains the internship
+        notebooks, capstone analysis, and supporting artifacts.
     </p>
 
 
     <p>
-        <a href="https://github.com/Zeeshan4511/flyrank-ml-internship"
+        <a class="button"
+           href="https://github.com/Zeeshan4511/flyrank-ml-internship"
            target="_blank"
            rel="noopener noreferrer">
-            View the project repository →
+            View GitHub Repository →
         </a>
     </p>
 
 
+    <h3>Capstone Notebook</h3>
+
     <p>
-        <a href="https://github.com/Zeeshan4511/flyrank-ml-internship/blob/main/work/notebooks/capstone.ipynb"
+        The capstone notebook contains the main analysis, model
+        comparison, validation, ranking, and recommendation workflow.
+    </p>
+
+    <p>
+        <a class="button"
+           href="https://github.com/Zeeshan4511/flyrank-ml-internship/blob/main/work/notebooks/capstone.ipynb"
            target="_blank"
            rel="noopener noreferrer">
-            View the capstone notebook →
+            View Capstone Notebook →
         </a>
     </p>
+
+
+    <h3>Generated Recommendation Artifacts</h3>
+
+    <ul>
+
+        <li>
+            <code>capstone_ranked_content.csv</code> —
+            complete ranked dataset containing 85,514 modeling
+            observations.
+        </li>
+
+        <li>
+            <code>capstone_top_100_recommendations.csv</code> —
+            focused top-100 recommendation output.
+        </li>
+
+    </ul>
+
+
+    <div class="highlight">
+
+        <strong>Reproducibility principle:</strong>
+
+        The public paper reports the methodology, validation design,
+        results, and limitations needed to understand how the
+        recommendation queue was produced without exposing private
+        client information or raw warehouse exports.
+
+    </div>
 
 </section>
 
@@ -1188,37 +1803,48 @@
 
 <section>
 
-    <h2>10. Conclusion</h2>
+    <h2>9. Conclusion</h2>
 
     <p>
-        This project measured whether demographic, lifestyle,
-        family-history, and dietary features could be used to
-        classify the supplied colorectal cancer risk categories.
+        This capstone developed a content refresh opportunity scoring
+        workflow using historical search-performance data from the
+        FlyRank ML Internship warehouse.
     </p>
 
     <p>
-        On the tested 80/20 stratified split, Random Forest achieved
-        90.5% accuracy and a 57.8% F1-score, compared with 87.0%
-        accuracy and a 40.9% F1-score for Logistic Regression.
+        The analysis defined a refresh opportunity as a future decline
+        of at least 50% in average monthly impressions and compared a
+        simple historical-trend baseline with Logistic Regression and
+        Random Forest.
     </p>
 
     <p>
-        These results show an observed performance advantage for
-        Random Forest on this dataset and split.
+        Random Forest achieved <strong>0.7436 Average Precision</strong>
+        and <strong>0.7748 ROC-AUC</strong> on the held-out
+        client-group test set.
     </p>
 
     <p>
-        However, the 41.9% recall for the high-risk class and the
-        limitations of the available validation design show why the
-        result should be treated cautiously.
+        The model's top 15% achieved
+        <strong>82.73% precision</strong>, compared with a
+        <strong>45.64%</strong> overall opportunity rate, producing
+        approximately <strong>1.81× lift</strong>.
+    </p>
+
+    <p>
+        At the same time, the historical-trend baseline remained
+        extremely strong at the very top of the ranking. This
+        demonstrates why simple baselines should be evaluated before
+        assuming that a more complex model is automatically better.
     </p>
 
 
     <div class="question">
 
-        The final output is a research and decision-support prototype
-        that ranks records for human review rather than an automated
-        clinical system.
+        The final output is best understood as a
+        <strong>content prioritisation and decision-support system</strong>:
+        it helps identify where a content team should look first,
+        while leaving the final refresh decision to human review.
 
     </div>
 
@@ -1229,7 +1855,7 @@
 
 <section id="acknowledgments">
 
-    <h2>11. Acknowledgments & Data Credit</h2>
+    <h2>10. Acknowledgments &amp; Data Credit</h2>
 
     <p>
         This project was completed as part of the
@@ -1237,8 +1863,9 @@
     </p>
 
     <p>
-        <strong>Data credit:</strong>
-        Built on the FlyRank ML Internship dataset.
+        <strong>
+            Built on the FlyRank ML Internship dataset.
+        </strong>
     </p>
 
     <p>
@@ -1251,39 +1878,65 @@
     </p>
 
     <p>
-        The modelling, validation audit, action playbook, and
-        research-paper assembly were completed as part of the
-        internship learning track.
+        The project uses the provided real-world search-performance
+        warehouse to demonstrate data aggregation, feature
+        engineering, machine-learning evaluation, validation,
+        leakage auditing, ranking, and action planning.
     </p>
+
+    <div class="warning">
+
+        <strong>Public-safe research statement:</strong>
+
+        This paper does not claim access to or knowledge of Google's
+        proprietary ranking algorithm. The results describe patterns
+        observed in the supplied dataset and are intended for
+        research and decision-support purposes.
+
+    </div>
 
 </section>
 
+
 </main>
+
 
 <footer>
 
-<div class="container">
+    <div class="container">
 
-    <h2>Research Artifact</h2>
+        <h2>Research Artifact</h2>
 
-    <p>
-        Machine Learning for Colorectal Cancer Risk Classification
-    </p>
+        <p>
+            Google Search Ranking &amp; Discoverability Capstone
+        </p>
 
-    <p class="footer-note">
-        This page presents observed results from the supplied dataset.
-        It is intended for research and decision-support purposes and
-        should not be interpreted as clinical advice or a validated
-        diagnostic system.
-    </p>
+        <p>
+            Refresh / Content Opportunity Scoring
+        </p>
 
-    <p class="footer-note">
-        FlyRank ML Internship · ML-12 · Capstone
-    </p>
+        <p class="footer-note">
+            This page presents observed results from the FlyRank ML
+            Internship dataset. The analysis is intended as a
+            directional content-prioritisation and decision-support
+            prototype.
+        </p>
 
-</div>
+        <p class="footer-note">
+            It does not prove Google's ranking algorithm, establish
+            causal refresh impact, or guarantee future search
+            performance.
+        </p>
+
+        <p class="footer-note">
+            FlyRank ML Internship · Capstone
+        </p>
+
+    </div>
 
 </footer>
 
+
 </body>
 </html>
+```
